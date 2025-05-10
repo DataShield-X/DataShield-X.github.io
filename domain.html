@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain | ML-Enhanced Data Loss Prevention</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --primary-dark: #000051;
+            --secondary: #ff6f00;
+            --secondary-light: #ffa040;
+            --secondary-dark: #c43e00;
+            --accent: #29b6f6;
+            --text-light: #f5f5f5;
+            --text-dark: #212121;
+            --background: #fafafa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary);
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .toggle-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px - 100px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .domain-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .domain-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .domain-nav-item {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .domain-nav-item:hover, .domain-nav-item.active {
+            background-color: var(--secondary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .methodology-card {
+            background-color: var(--background);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .methodology-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .methodology-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--background);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(26, 35, 126, 0.1);
+            border-radius: 50%;
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-info {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-info h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-info p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: var(--text-light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .toggle-menu {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i> ML-DLP Research
+            </a>
+            <div class="toggle-menu" id="toggleMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="domain.html" class="nav-link active">Domain</a></li>
+                <li class="nav-item"><a href="milestones.html" class="nav-link">Milestones</a></li>
+                <li class="nav-item"><a href="documents.html" class="nav-link">Documents</a></li>
+                <li class="nav-item"><a href="presentations.html" class="nav-link">Presentations</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Research Domain</h1>
+            
+            <div class="domain-nav">
+                <a href="#literature" class="domain-nav-item">Literature Survey</a>
+                <a href="#gap" class="domain-nav-item">Research Gap</a>
+                <a href="#problem" class="domain-nav-item">Research Problem</a>
+                <a href="#objectives" class="domain-nav-item">Research Objectives</a>
+                <a href="#methodology" class="domain-nav-item">Methodology</a>
+                <a href="#technologies" class="domain-nav-item">Technologies</a>
+            </div>
+
+            <section id="literature" class="domain-section">
+                <h2>Literature Survey</h2>
+                <p>Our extensive literature review revealed that current Data Loss Prevention (DLP) systems face several limitations in detecting sophisticated data exfiltration attempts. We examined both commercial solutions (Symantec, Forcepoint, Trellix, Microsoft Purview) and open-source alternatives (MyDLP).</p>
+                
+                <h3>Existing DLP Solutions</h3>
+                <p>Commercial DLP tools vary in their approach and capabilities:</p>
+                <ul>
+                    <li><strong>Symantec DLP (Broadcom)</strong>: Offers comprehensive coverage but requires complex infrastructure and significant resources.</li>
+                    <li><strong>Forcepoint DLP</strong>: Known for robust endpoint agents and risk-adaptive policies but has integration challenges.</li>
+                    <li><strong>Trellix DLP (McAfee)</strong>: Provides easy installation but suffers from high CPU usage and notable false positives.</li>
+                    <li><strong>Microsoft Purview</strong>: Excels in Microsoft ecosystem integration but lacks depth in enterprise features.</li>
+                </ul>
+                
+                <h3>Sensitive Data Classification Approaches</h3>
+                <p>Current approaches to sensitive data classification primarily rely on:</p>
+                <ul>
+                    <li>Pattern matching using regular expressions</li>
+                    <li>Keyword matching for identifying sensitive terms</li>
+                    <li>Exact data matching (fingerprinting) for known documents</li>
+                    <li>Basic statistical analysis with limited context awareness</li>
+                </ul>
+                <p>Few solutions leverage advanced machine learning for contextual understanding, creating an opportunity for innovation.</p>
+                
+                <h3>User Behavior Analysis</h3>
+                <p>Research in User and Entity Behavior Analytics (UEBA) demonstrates the effectiveness of machine learning for insider threat detection. Clustering and probabilistic models can identify suspicious behavior patterns, though commercial implementations are often limited in scope.</p>
+                
+                <h3>Biometric Authentication and Phishing Detection</h3>
+                <p>Literature indicates that facial recognition and phishing detection technologies exist separately, but few DLP solutions integrate these capabilities cohesively with data protection strategies.</p>
+                
+                <h3>Deep Learning in Steganalysis</h3>
+                <p>Research shows significant advancements in using deep learning for steganalysis, with CNN-based architectures achieving superior detection rates compared to traditional methods. However, integration with enterprise DLP remains limited.</p>
+            </section>
+            
+            <section id="gap" class="domain-section">
+                <h2>Research Gap</h2>
+                <p>Our literature survey identified the following gaps in current DLP solutions:</p>
+                <ol>
+                    <li>Insufficient integration of advanced machine learning techniques for context-aware data classification</li>
+                    <li>Limited capabilities in detecting insider threats through behavioral analysis</li>
+                    <li>Inadequate mechanisms for securing endpoints against sophisticated phishing attacks</li>
+                    <li>Absence of deep learning-based steganalysis to detect covert data exfiltration via images</li>
+                    <li>Lack of privacy-preserving logging mechanisms for sensitive data violations</li>
+                    <li>Poor integration between different security components, leading to fragmented protection</li>
+                </ol>
+                <p>These gaps underscore the need for a comprehensive, integrated DLP solution that leverages machine learning and deep learning across multiple protection domains.</p>
+            </section>
+            
+            <section id="problem" class="domain-section">
+                <h2>Research Problem</h2>
+                <p>Organizations face significant challenges in protecting sensitive data from exfiltration due to:</p>
+                <ul>
+                    <li>Increasing sophistication of insider threats and external attacks</li>
+                    <li>Growing regulatory requirements (PCI DSS, GDPR, HIPAA, etc.)</li>
+                    <li>Limitations of traditional rule-based DLP solutions</li>
+                    <li>Lack of integrated, multi-layered protection systems</li>
+                </ul>
+                <p>Our research addresses the critical question: <strong>How can machine learning and deep learning technologies be effectively integrated into a comprehensive DLP system to detect, prevent, and securely log data exfiltration attempts across multiple channels while maintaining operational efficiency?</strong></p>
+            </section>
+            
+            <section id="objectives" class="domain-section">
+                <h2>Research Objectives</h2>
+                <ol>
+                    <li>Design and implement an intelligent data classification and blocking mechanism using advanced ML models to detect sensitive information according to multiple regulatory frameworks</li>
+                    <li>Develop a dynamic risk scoring system that identifies potential insider threats through behavioral analysis and assigns risk levels to users based on their actions</li>
+                    <li>Create an endpoint security module that combines webcam-based login verification and phishing detection to enhance protection against unauthorized access</li>
+                    <li>Build a dual-domain deep learning steganalysis engine capable of detecting data hidden in both spatial and DCT domains of images</li>
+                    <li>Integrate these components into a cohesive DLP system that leverages homomorphic encryption for secure logging of violations</li>
+                    <li>Evaluate the system's performance in terms of detection accuracy, false positive/negative rates, and computational efficiency</li>
+                </ol>
+            </section>
+            
+            <section id="methodology" class="domain-section">
+                <h2>Methodology</h2>
+                <p>Our research follows a systematic approach to building and evaluating the proposed DLP system:</p>
+                
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <div class="methodology-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Data Collection</h3>
+                        <p>Gathering datasets for training machine learning models:</p>
+                        <ul>
+                            <li>Synthetic and real sensitive data samples for classification</li>
+                            <li>ALASKA2, BOSSbase, and BOWS2 for steganalysis</li>
+                            <li>Phishing URL datasets</li>
+                            <li>User behavior logs for risk scoring</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="methodology-card">
+                        <div class="methodology-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Model Development</h3>
+                        <p>Training and optimizing ML models:</p>
+                        <ul>
+                            <li>BERTopic and DeBERTa for sensitive data classification</li>
+                            <li>ALBERT for PII detection and entity recognition</li>
+                            <li>CNN architectures for spatial and DCT steganalysis</li>
+                            <li>Logistic Regression, SVM, and Random Forest for phishing detection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="methodology-card">
+                        <div class="methodology-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>System Integration</h3>
+                        <p>Combining components into a cohesive system:</p>
+                        <ul>
+                            <li>Email interception and content analysis</li>
+                            <li>Homomorphic encryption for secure logging</li>
+                            <li>User behavior monitoring and risk scoring</li>
+                            <li>Facial recognition for login security</li>
+                            <li>Image analysis for steganography detection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="methodology-card">
+                        <div class="methodology-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Evaluation</h3>
+                        <p>Testing system performance using:</p>
+                        <ul>
+                            <li>Precision, recall, and F1-score for classification</li>
+                            <li>True positive and false positive rates for detection</li>
+                            <li>Correlation analysis for risk scoring</li>
+                            <li>Overall system accuracy and efficiency</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="technologies" class="domain-section">
+                <h2>Technologies Used</h2>
+                <p>Our research leverages the following key technologies:</p>
+                
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div>
+                            <h3>Python</h3>
+                            <p>Primary programming language</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3>PyTorch</h3>
+                            <p>Deep learning framework for steganalysis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3>HuggingFace</h3>
+                            <p>Transformer models (ALBERT, DeBERTa)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3>Scikit-learn</h3>
+                            <p>Machine learning for classification</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <h3>Microsoft SEAL</h3>
+                            <p>Homomorphic encryption library</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div>
+                            <h3>NLTK</h3>
+                            <p>Natural language processing</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div>
+                            <h3>Selenium WebDriver</h3>
+                            <p>Web automation for phishing detection</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div>
+                            <h3>Node-SEAL</h3>
+                            <p>JavaScript implementation of SEAL</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>ML-DLP Research Project</h3>
+                    <p>Department of Computer Systems Engineering</p>
+                    <p>Sri Lanka Institute of Information Technology</p>
+                    <p>Malabe, Sri Lanka</p>
+                </div>
+                <div class="footer-info">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="domain.html" style="color: var(--text-light); text-decoration: none;">Domain</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="contact.html" style="color: var(--text-light); text-decoration: none;">Contact</a></p>
+                </div>
+                <div class="footer-info">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ML-DLP Research Team. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu functionality for mobile
+        const toggleMenu = document.getElementById('toggleMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        toggleMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!toggleMenu.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('.domain-nav-item').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Highlight active nav item
+                document.querySelectorAll('.domain-nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
