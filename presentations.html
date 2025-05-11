@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentations | ML-Enhanced Data Loss Prevention</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --primary-dark: #000051;
+            --secondary: #ff6f00;
+            --secondary-light: #ffa040;
+            --secondary-dark: #c43e00;
+            --accent: #29b6f6;
+            --text-light: #f5f5f5;
+            --text-dark: #212121;
+            --background: #fafafa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary);
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .toggle-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px - 100px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .presentation-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .presentation-card {
+            background-color: var(--background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .presentation-thumbnail {
+            position: relative;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .thumbnail-icon {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+        }
+
+        .presentation-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .presentation-card:hover .presentation-thumbnail img {
+            opacity: 0.9;
+        }
+
+        .presentation-thumbnail .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .presentation-play {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .presentation-card:hover .presentation-play {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .presentation-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .presentation-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .presentation-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .presentation-desc {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .presentation-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .presentation-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+            flex: 1;
+        }
+
+        .btn-view {
+            background-color: var(--primary);
+        }
+
+        .btn-download {
+            background-color: var(--secondary);
+        }
+
+        .presentation-link:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .presentation-link i {
+            margin-right: 0.5rem;
+        }
+
+        .presentation-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .presentation-tag {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .presentation-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        .status-available {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .status-upcoming {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-info {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-info h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-info p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: var(--text-light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            transition: all 0.3s;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: var(--card-bg);
+            margin: 2% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: modalAnimation 0.4s;
+        }
+
+        @keyframes modalAnimation {
+            from {opacity: 0; transform: scale(0.8);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: var(--text-dark);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+        }
+        
+        #modalTitle {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Loading indicator for the iframe */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -25px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .toggle-menu {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .presentation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .presentation-meta {
+                flex-direction: column;
+            }
+
+            .presentation-meta span {
+                margin-bottom: 0.3rem;
+            }
+
+            .presentation-actions {
+                flex-direction: column;
+            }
+            
+            .slide-container {
+                height: 450px; /* Smaller height for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i> ML-DLP Research
+            </a>
+            <div class="toggle-menu" id="toggleMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="domain.html" class="nav-link">Domain</a></li>
+                <li class="nav-item"><a href="milestones.html" class="nav-link">Milestones</a></li>
+                <li class="nav-item"><a href="documents.html" class="nav-link">Documents</a></li>
+                <li class="nav-item"><a href="presentations.html" class="nav-link active">Presentations</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Project Presentations</h1>
+            
+            <div class="presentation-section">
+                <h2>Research Proposal Presentations</h2>
+                <div class="presentation-grid">
+                    <div class="presentation-card">
+                        <span class="presentation-status status-available">Available</span>
+                        <div class="presentation-thumbnail">
+                            <img src="/api/placeholder/600/400" alt="Project Proposal Presentation">
+                            <div class="thumbnail-icon">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <div class="overlay">
+                                <div class="presentation-play" onclick="openModal('proposal')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="presentation-info">
+                            <div class="presentation-title">Project Proposal Presentation</div>
+                            <div class="presentation-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 11, 2025</span>
+                                <span><i class="far fa-file"></i> 14.23 MB</span>
+                            </div>
+                            <div class="presentation-tags">
+                                <span class="presentation-tag">Research Proposal</span>
+                                <span class="presentation-tag">ML-DLP</span>
+                            </div>
+                            <p class="presentation-desc">Initial presentation outlining our research proposal on ML-Enhanced Data Loss Prevention. Covers problem statement, objectives, and methodology.</p>
+                            <div class="presentation-actions">
+                                <a href="#" class="presentation-link btn-view" onclick="openModal('proposal'); return false;">
+                                    <i class="fas fa-eye"></i> View Slides
+                                </a>
+                                <a href="presentations/Project_Proposal.pptx.pptx" class="presentation-link btn-download" download>
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="presentation-section">
+                <h2>Progress Presentations</h2>
+                <div class="presentation-grid">
+                    <div class="presentation-card">
+                        <span class="presentation-status status-available">Available</span>
+                        <div class="presentation-thumbnail">
+                            <img src="/api/placeholder/600/400" alt="Progress Presentation 1">
+                            <div class="thumbnail-icon">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <div class="overlay">
+                                <div class="presentation-play" onclick="openModal('progress1')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="presentation-info">
+                            <div class="presentation-title">Progress Presentation 1</div>
+                            <div class="presentation-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 11, 2025</span>
+                                <span><i class="far fa-file"></i> 14.86 MB</span>
+                            </div>
+                            <div class="presentation-tags">
+                                <span class="presentation-tag">Progress</span>
+                                <span class="presentation-tag">Data Classification</span>
+                                <span class="presentation-tag">Risk Scoring</span>
+                            </div>
+                            <p class="presentation-desc">First progress presentation covering the implementation of data classification and risk scoring modules, with performance metrics and early results.</p>
+                            <div class="presentation-actions">
+                                <a href="#" class="presentation-link btn-view" onclick="openModal('progress1'); return false;">
+                                    <i class="fas fa-eye"></i> View Slides
+                                </a>
+                                <a href="presentations/progress_presentation_1.pptx" class="presentation-link btn-download" download>
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="presentation-card">
+                        <span class="presentation-status status-available">Available</span>
+                        <div class="presentation-thumbnail">
+                            <img src="/api/placeholder/600/400" alt="Progress Presentation 2">
+                            <div class="thumbnail-icon">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <div class="overlay">
+                                <div class="presentation-play" onclick="openModal('progress2')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="presentation-info">
+                            <div class="presentation-title">Progress Presentation 2</div>
+                            <div class="presentation-meta">
+                                <span><i class="far fa-calendar-alt"></i> May 11, 2025</span>
+                                <span><i class="far fa-file"></i> 31.13 KB</span>
+                            </div>
+                            <div class="presentation-tags">
+                                <span class="presentation-tag">Progress</span>
+                                <span class="presentation-tag">Endpoint Security</span>
+                                <span class="presentation-tag">Steganalysis</span>
+                            </div>
+                            <p class="presentation-desc">Second progress presentation covering the implementation of endpoint security and steganalysis modules, with integration details and evaluations.</p>
+                            <div class="presentation-actions">
+                                <a href="#" class="presentation-link btn-view" onclick="openModal('progress2'); return false;">
+                                    <i class="fas fa-eye"></i> View Slides
+                                </a>
+                                <a href="presentations/progress_presentation_2.pptx" class="presentation-link btn-download" download>
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="presentation-section">
+                <h2>Final Presentations</h2>
+                <div class="presentation-grid">
+                    <div class="presentation-card">
+                        <span class="presentation-status status-upcoming">Upcoming</span>
+                        <div class="presentation-thumbnail">
+                            <img src="/api/placeholder/600/400" alt="Final Research Presentation">
+                            <div class="thumbnail-icon">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <div class="overlay">
+                                <div class="presentation-play" onclick="alert('Presentation not yet available')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="presentation-info">
+                            <div class="presentation-title">Final Research Presentation</div>
+                            <div class="presentation-meta">
+                                <span><i class="far fa-calendar-alt"></i> March 15, 2025</span>
+                                <span><i class="far fa-clock"></i> Coming Soon</span>
+                            </div>
+                            <div class="presentation-tags">
+                                <span class="presentation-tag">Final</span>
+                                <span class="presentation-tag">Complete System</span>
+                                <span class="presentation-tag">Evaluation</span>
+                            </div>
+                            <p class="presentation-desc">Comprehensive presentation of the complete ML-Enhanced DLP system, including all components, integration, evaluation results, and conclusions.</p>
+                            <div class="presentation-actions">
+                                <a href="#" class="presentation-link btn-view" style="background-color: #9e9e9e;" onclick="alert('Presentation not yet available'); return false;">
+                                    <i class="fas fa-eye"></i> View Slides
+                                </a>
+                                <a href="#" class="presentation-link btn-download" style="background-color: #9e9e9e;" onclick="alert('Presentation not yet available'); return false;">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Presentations -->
+    <div id="presentationModal" class="modal">
+        <div class="modal-content" style="width: 90%; max-width: 1200px;">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Presentation Title</h2>
+            
+            <div class="slide-container">
+                <!-- Google Docs viewer iframe will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>ML-DLP Research Project</h3>
+                    <p>Department of Computer Systems Engineering</p>
+                    <p>Sri Lanka Institute of Information Technology</p>
+                    <p>Malabe, Sri Lanka</p>
+                </div>
+                <div class="footer-info">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="domain.html" style="color: var(--text-light); text-decoration: none;">Domain</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="contact.html" style="color: var(--text-light); text-decoration: none;">Contact</a></p>
+                </div>
+                <div class="footer-info">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ML-DLP Research Team. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu functionality for mobile
+        const toggleMenu = document.getElementById('toggleMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        toggleMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!toggleMenu.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Modal functionality
+        const modal = document.getElementById('presentationModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const slideContainer = document.querySelector('.slide-container');
+        
+        function openModal(presentationId) {
+            // File IDs from Google Drive for each presentation
+            const driveFileIds = {
+                'proposal': '1sSiwerg708a5_A5WdOM7aDN3HYbdgCBs',
+                'progress1': '16MAliWEDgKSMutUqHkQyTs0g1FcfG_Lw',
+                'progress2': '1IetWNTI3VKcjdaJFCokhnzfHqu4WHJoy'
+            };
+            
+            // Presentation titles
+            const presentationTitles = {
+                'proposal': 'Project Proposal Presentation',
+                'progress1': 'Progress Presentation 1',
+                'progress2': 'Progress Presentation 2'
+            };
+            
+            // Check if we have a file ID for this presentation
+            if (!driveFileIds[presentationId]) {
+                alert('Presentation not available');
+                return;
+            }
+            
+            // Get the file ID
+            const fileId = driveFileIds[presentationId];
+            
+            // Set modal title
+            modalTitle.textContent = presentationTitles[presentationId];
+            
+            // Clear existing content
+            slideContainer.innerHTML = '';
+            
+            // Remove any existing alternative viewer links
+            const existingAlternativeViewers = document.getElementById('alternative-links');
+            if (existingAlternativeViewers) {
+                existingAlternativeViewers.remove();
+            }
+            
+            // Add loading indicator
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            slideContainer.appendChild(loader);
+            
+            // Create Google Drive Viewer iframe (using direct embed)
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            iframe.style.border = 'none';
+            
+            // Use Google Drive's direct embed URL
+            iframe.src = `https://docs.google.com/presentation/d/${fileId}/embed?start=false&loop=false&delayms=3000`;
+            
+            // Remove loader when iframe loads
+            iframe.onload = function() {
+                loader.style.display = 'none';
+            };
+            
+            // Add iframe to container
+            slideContainer.appendChild(iframe);
+            
+            // Show the modal
+            modal.style.display = 'block';
+            
+            // Alternative viewer link
+            const alternativeViewerDiv = document.createElement('div');
+            alternativeViewerDiv.id = 'alternative-links'; // Add ID to find it later
+            alternativeViewerDiv.style.marginTop = '10px';
+            alternativeViewerDiv.style.textAlign = 'center';
+            alternativeViewerDiv.innerHTML = `
+                <p style="font-size: 0.9rem; color: #666;">
+                    <a href="https://docs.google.com/presentation/d/${fileId}/edit?usp=sharing" target="_blank" style="color: var(--primary);">
+                        <i class="fab fa-google-drive"></i> Open in Google Slides
+                    </a>
+                    &nbsp;|&nbsp;
+                    <a href="https://docs.google.com/presentation/d/${fileId}/export/pptx" style="color: var(--primary);">
+                        <i class="fas fa-download"></i> Download as PowerPoint
+                    </a>
+                </p>
+            `;
+            slideContainer.parentNode.insertBefore(alternativeViewerDiv, slideContainer.nextSibling);
+        }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
