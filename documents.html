@@ -407,64 +407,53 @@
                 <h3>Filter by Category</h3>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All Documents</button>
-                    <button class="filter-btn" data-filter="proposal">Proposal</button>
+                    <button class="filter-btn" data-filter="proposal">Project Proposals</button>
                     <button class="filter-btn" data-filter="technical">Technical Documentation</button>
-                    <button class="filter-btn" data-filter="report">Reports</button>
-                    <button class="filter-btn" data-filter="final">Final Documents</button>
+                    <button class="filter-btn" data-filter="report">Progress Reports</button>
+                    <button class="filter-btn" data-filter="final-reports">Final Reports</button>
+                    <button class="filter-btn" data-filter="research">Research Paper</button>
                 </div>
             </div>
             
             <div class="document-section">
-                <h2>Project Initiation Documents</h2>
+                <h2>Project Proposal Documents</h2>
                 <div class="document-grid">
+                    <!-- List PDFs in Documents/Project_proposal -->
                     <div class="document-card" data-category="proposal">
-                        <div class="document-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Project Charter</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> September 1, 2024</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (2.3 MB)</span>
-                            </div>
-                            <p class="document-desc">Formal document outlining the project scope, objectives, stakeholders, and high-level requirements for the ML-Enhanced DLP research project.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component1.pdf</div>
+                            <a href="Documents/Project_proposal/Component1.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
                             <span class="document-status status-available">Available</span>
                         </div>
                     </div>
-                    
                     <div class="document-card" data-category="proposal">
-                        <div class="document-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Project Proposal Document</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> September 15, 2024</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (4.7 MB)</span>
-                            </div>
-                            <p class="document-desc">Comprehensive proposal document detailing the research problem, objectives, methodology, and expected outcomes of the ML-Enhanced DLP project.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component2.pdf</div>
+                            <a href="Documents/Project_proposal/Component2.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
                             <span class="document-status status-available">Available</span>
                         </div>
                     </div>
-                    
                     <div class="document-card" data-category="proposal">
-                        <div class="document-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Literature Survey Report</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> October 5, 2024</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (5.1 MB)</span>
-                            </div>
-                            <p class="document-desc">Detailed review of existing DLP solutions, machine learning approaches for security, and related research in the field of data security and privacy.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component3.pdf</div>
+                            <a href="Documents/Project_proposal/Component3.pdf" download class="document-link">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                            <span class="document-status status-available">Available</span>
+                        </div>
+                    </div>
+                    <div class="document-card" data-category="proposal">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="document-info">
+                            <div class="document-title">Component4.pdf</div>
+                            <a href="Documents/Project_proposal/Component4.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
                             <span class="document-status status-available">Available</span>
@@ -490,7 +479,7 @@
                             <a href="#" class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-available">Available</span>
+                            <span class="document-status status-pending">Pending</span>
                         </div>
                     </div>
                     
@@ -508,7 +497,7 @@
                             <a href="#" class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-available">Available</span>
+                            <span class="document-status status-pending">Pending</span>
                         </div>
                     </div>
                     
@@ -526,7 +515,7 @@
                             <a href="#" class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-available">Available</span>
+                            <span class="document-status status-pending">Pending</span>
                         </div>
                     </div>
                     
@@ -567,7 +556,7 @@
                             <a href="#" class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-available">Available</span>
+                            <span class="document-status status-pending">Pending</span>
                         </div>
                     </div>
                     
@@ -609,78 +598,76 @@
                 </div>
             </div>
             
+            <!-- Final Reports Section -->
             <div class="document-section">
-                <h2>Final Documentation</h2>
+                <h2>Final Reports</h2>
                 <div class="document-grid">
-                    <div class="document-card" data-category="final">
-                        <div class="document-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
+                    <!-- List PDFs in Documents/Final_reports -->
+                    <div class="document-card" data-category="final-reports">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Final Research Paper</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> March 15, 2025</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (7.8 MB)</span>
-                            </div>
-                            <p class="document-desc">Complete research paper documenting the entire ML-Enhanced DLP project, including methodology, implementation, results, and conclusions.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component1.pdf</div>
+                            <a href="Documents/Final_reports/Component1.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-pending">Pending</span>
+                            <span class="document-status status-available">Available</span>
                         </div>
                     </div>
-                    
-                    <div class="document-card" data-category="final">
-                        <div class="document-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
+                    <div class="document-card" data-category="final-reports">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">User Manual</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> March 10, 2025</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (5.2 MB)</span>
-                            </div>
-                            <p class="document-desc">Comprehensive user manual for the ML-Enhanced DLP system, including setup instructions, configuration options, and usage examples.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component2.pdf</div>
+                            <a href="Documents/Final_reports/Component2.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-pending">Pending</span>
+                            <span class="document-status status-available">Available</span>
                         </div>
                     </div>
-                    
-                    <div class="document-card" data-category="final">
-                        <div class="document-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
+                    <div class="document-card" data-category="final-reports">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Deployment Guide</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> March 12, 2025</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (4.1 MB)</span>
-                            </div>
-                            <p class="document-desc">Technical guide for deploying the ML-Enhanced DLP system in enterprise environments, including system requirements and configuration.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component3.pdf</div>
+                            <a href="Documents/Final_reports/Component3.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-pending">Pending</span>
+                            <span class="document-status status-available">Available</span>
                         </div>
                     </div>
-                    
-                    <div class="document-card" data-category="final">
-                        <div class="document-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
+                    <div class="document-card" data-category="final-reports">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
                         <div class="document-info">
-                            <div class="document-title">Future Enhancements Roadmap</div>
-                            <div class="document-meta">
-                                <span><i class="far fa-calendar-alt"></i> March 20,.2025</span>
-                                <span><i class="far fa-file-pdf"></i> PDF (3.5 MB)</span>
-                            </div>
-                            <p class="document-desc">Document outlining potential future enhancements, research directions, and improvements for the ML-Enhanced DLP system.</p>
-                            <a href="#" class="document-link">
+                            <div class="document-title">Component4.pdf</div>
+                            <a href="Documents/Final_reports/Component4.pdf" download class="document-link">
                                 <i class="fas fa-download"></i> Download
                             </a>
-                            <span class="document-status status-pending">Pending</span>
+                            <span class="document-status status-available">Available</span>
+                        </div>
+                    </div>
+                    <div class="document-card" data-category="final-reports">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="document-info">
+                            <div class="document-title">Final_Report.pdf</div>
+                            <a href="Documents/Final_reports/Final_Report.pdf" download class="document-link">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                            <span class="document-status status-available">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Paper Section -->
+            <div class="document-section">
+                <h2>Research Paper</h2>
+                <div class="document-grid">
+                    <div class="document-card" data-category="research">
+                        <div class="document-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="document-info">
+                            <div class="document-title">24-25J-003_Research_Paper.pdf</div>
+                            <a href="Documents/Research%20paper/24-25J-003_Research_Paper.pdf" download class="document-link">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                            <span class="document-status status-available">Available</span>
                         </div>
                     </div>
                 </div>
